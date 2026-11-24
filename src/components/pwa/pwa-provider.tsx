@@ -47,7 +47,7 @@ export function PwaProvider({ children }: { children: React.ReactNode }) {
     window.addEventListener("appinstalled", appInstalled);
 
     // Service worker with update prompt.
-    if ("serviceWorker" in navigator && (process.env.NODE_ENV === "production" || process.env.NEXT_PUBLIC_SW_DEV === "true")) {
+    if ("serviceWorker" in navigator && process.env.NEXT_PUBLIC_STATIC_PREVIEW !== "true" && (process.env.NODE_ENV === "production" || process.env.NEXT_PUBLIC_SW_DEV === "true")) {
       navigator.serviceWorker.register("/sw.js", { scope: "/" }).then((reg) => {
         const promptUpdate = (worker: ServiceWorker) =>
           toast("A new version of ReWear is ready", {

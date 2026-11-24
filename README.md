@@ -176,6 +176,18 @@ npm ci && npx prisma migrate deploy && npm run build
 6. Schedule `/api/cron/reconcile` every 5 minutes.
 7. Do **not** run the seed in production (it refuses unless forced).
 
+### GitHub Pages preview (public site only)
+
+GitHub Pages serves static files only, so it cannot run ReWear itself (no database, sign-in, bookings, payouts or role portals). It hosts a read-only snapshot of the public website instead: https://raiden-56.github.io/re-wear/
+
+To refresh it, with the local database running and seeded:
+
+```bash
+PREVIEW_BASE_PATH=/re-wear npm run preview:static
+```
+
+This builds into `.next-preview/`, renders the public pages and shop items into `out/` with a "static preview" banner, then you publish `out/` to the `gh-pages` branch. Forms such as the pincode checker and contact form need the server, so they don't work in the preview.
+
 ## PWA installation
 
 ReWear ships a web app manifest, generated icons (`npm run icons`), a service worker with an offline fallback page, an install prompt, an update prompt, and an offline banner. The service worker caches only immutable build assets, icons and public editorial images — **never** API responses or authenticated pages, so no financial or personal data is stored offline.
