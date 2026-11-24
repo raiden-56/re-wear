@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ReWear design tokens */
+:root {
+  --forest: #174b37;
+  --forest-700: #113a2a;
+  --forest-50: #e8f0ec;
+  --sage: #78a88a;
+  --sage-100: #dce9e0;
+  --cream: #f4f0e7;
+  --cream-200: #ebe5d8;
+  --amber: #e9b96e;
+  --amber-100: #f8ead2;
+  --charcoal: #292e2b;
+  --muted: #5d655f;
+  --line: #e0d9ca;
+  --danger: #b4432f;
+  --danger-50: #f8e6e2;
+  --info: #2f5f8a;
+  --info-50: #e4edf5;
+}
+
+@theme inline {
+  --color-forest: var(--forest);
+  --color-forest-700: var(--forest-700);
+  --color-forest-50: var(--forest-50);
+  --color-sage: var(--sage);
+  --color-sage-100: var(--sage-100);
+  --color-cream: var(--cream);
+  --color-cream-200: var(--cream-200);
+  --color-amber: var(--amber);
+  --color-amber-100: var(--amber-100);
+  --color-charcoal: var(--charcoal);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-danger: var(--danger);
+  --color-danger-50: var(--danger-50);
+  --color-info: var(--info);
+  --color-info-50: var(--info-50);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.25rem;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--charcoal);
+}
+
+:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Tabular numbers for money and weights */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle paper grain on editorial sections */
+.grain {
+  background-image: radial-gradient(rgba(41, 46, 43, 0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--cream-200) 25%, #f7f3eb 50%, var(--cream-200) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}
+
+/* Safe-area padding for installed PWA on notched phones */
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+}
+
+/* Codes, money and weights never wrap mid-token */
+.num {
+  white-space: nowrap;
+}
+
+/* CSS-only entrance for above-the-fold content (visible even if JS is slow) */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+.rise {
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

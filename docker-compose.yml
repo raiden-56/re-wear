@@ -1,0 +1,18 @@
+# Local PostgreSQL alternative to `npm run db:local`.
+#   docker compose up -d db
+# Then use port 5433 as in .env.example.
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rewear
+      POSTGRES_PASSWORD: rewear_local_dev
+      POSTGRES_DB: rewear
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - rewear-db:/var/lib/postgresql/data
+      - ./scripts/docker-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+volumes:
+  rewear-db:
